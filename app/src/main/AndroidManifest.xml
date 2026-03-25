@@ -133,6 +133,12 @@
             android:label="@string/glupro_activity_title"
             android:exported="false" />
 
+        <!-- MiniMed 780G Status / Diagnostics screen -->
+        <activity
+            android:name=".ui.minimed.MiniMedStatusActivity"
+            android:label="@string/minimed_status_title"
+            android:exported="false" />
+
         <activity-alias
             android:name=".AndroidURationaleActivity"
             android:exported="true"
@@ -196,16 +202,29 @@
             android:exported="true">
         </provider>
 
+        <!-- New Compose home (launcher) – Phase B -->
+        <activity
+            android:name=".ui.minimed.MjHomeActivity"
+            android:label="@string/mj_home_title"
+            android:exported="true"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.MULTIWINDOW_LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Compose settings – Phase B -->
+        <activity
+            android:name=".ui.minimed.MjSettingsActivity"
+            android:label="@string/mj_settings_title"
+            android:exported="false" />
+
         <activity
             android:name=".Home"
             android:label="@string/app_name_launcher"
             android:launchMode="singleTask">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-                <category android:name="android.intent.category.MULTIWINDOW_LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="net.openid.appauth.RedirectUriReceiverActivity"

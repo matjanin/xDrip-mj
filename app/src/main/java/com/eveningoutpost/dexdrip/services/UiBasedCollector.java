@@ -392,7 +392,7 @@ public class UiBasedCollector extends NotificationListenerService {
     boolean handleNewValue(final long timestamp, final int mgdl) {
         Sensor.createDefaultIfMissing();
 
-        UserError.Log.d(TAG, "Found specific value: " + mgdl);
+        UserError.Log.d(TAG, "MiniMed 780G companion-app: received value=" + mgdl + " mgdl at ts=" + timestamp);
 
         if ((mgdl >= 40 && mgdl <= 405)) {
             val grace = DexCollectionType.getCurrentSamplePeriod() * 4;
@@ -405,14 +405,17 @@ public class UiBasedCollector extends NotificationListenerService {
                 if (isJammed(mgdl)) {
                     UserError.Log.wtf(TAG, "Apparently value is jammed at: " + mgdl);
                 } else {
-                    UserError.Log.d(TAG, "Inserting new value");
+                    UserError.Log.d(TAG, "MiniMed 780G: inserting new BG reading value=" + mgdl + " mgdl");
                     PersistentStore.setLong(UI_BASED_STORE_LAST_VALUE, mgdl);
                     val bgr = BgReading.bgReadingInsertFromG5(mgdl, timestamp);
                     if (bgr != null) {
                         bgr.find_slope();
                         bgr.noRawWillBeAvailable();
                         bgr.injectDisplayGlucose(BestGlucose.getDisplayGlucose());
+                        UserError.Log.d(TAG, "MiniMed 780G: BG reading stored successfully uuid=" + bgr.uuid);
                         return true;
+                    } else {
+                        UserError.Log.wtf(TAG, "MiniMed 780G: bgReadingInsertFromG5 returned null for value=" + mgdl);
                     }
                 }
             } else {
