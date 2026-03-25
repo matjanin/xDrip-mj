@@ -54,7 +54,7 @@ class MiniMedStatusActivity : AppCompatActivity() {
 
         val tv = findViewById<android.widget.TextView>(R.id.tv_minimed_status_body)
         tv?.text = buildString {
-            appendLine("⚙\u0020${getString(R.string.minimed_status_integration_label)}")
+            appendLine("⚙ ${getString(R.string.minimed_status_integration_label)}")
             appendLine("  $integrationStatus")
             appendLine()
             appendLine("🔔 ${getString(R.string.minimed_status_notification_label)}")

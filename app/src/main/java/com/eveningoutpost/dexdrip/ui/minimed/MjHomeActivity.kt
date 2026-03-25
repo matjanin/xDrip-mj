@@ -101,7 +101,7 @@ private fun MjHomeScreen(
             BgReading.latestForGraph(
                 36,
                 (System.currentTimeMillis() - Constants.HOUR_IN_MS * 3)
-            ) ?: emptyList<BgReading>()
+            ) ?: emptyList()
         )
     }
     val isUiBased by remember(tick) {
@@ -223,8 +223,9 @@ private fun GlucoseCard(bgReading: BgReading?, doMgdl: Boolean) {
     val deltaText = if (bgReading != null) {
         BgGraphBuilder.unitizedDeltaString(true, false, true, doMgdl)
     } else "–"
+    val ageFormat = stringResource(R.string.mj_home_age_format)
     val ageText = if (bgReading != null) {
-        JoH.niceTimeSince(bgReading.timestamp) + " ago"
+        ageFormat.format(JoH.niceTimeSince(bgReading.timestamp))
     } else "–"
 
     val glucoseColor = glucoseColor(bgReading?.calculated_value ?: 0.0, doMgdl)
@@ -328,7 +329,8 @@ private fun GlucoseSparkline(readings: List<BgReading>, doMgdl: Boolean) {
         val tRange = (maxT - minT).coerceAtLeast(1f)
 
         val values = sorted.map {
-            if (doMgdl) it.calculated_value.toFloat() else (it.calculated_value * 0.0555f)
+            if (doMgdl) it.calculated_value.toFloat()
+            else (it.calculated_value * Constants.MGDL_TO_MMOLL).toFloat()
         }
         val minV = values.minOrNull() ?: 0f
         val maxV = (values.maxOrNull() ?: 1f).coerceAtLeast(minV + 1f)
@@ -395,7 +397,7 @@ private fun glucoseColor(mgdl: Double, doMgdl: Boolean): Color {
     val high = if (doMgdl) 180.0 else 10.0
     val warnLow = if (doMgdl) 80.0 else 4.4
     val warnHigh = if (doMgdl) 160.0 else 8.9
-    val v = if (doMgdl) mgdl else mgdl * 0.0555
+    val v = if (doMgdl) mgdl else mgdl * Constants.MGDL_TO_MMOLL
     return when {
         v < low || v > high -> Color(0xFFD32F2F)
         v < warnLow || v > warnHigh -> Color(0xFFF57C00)

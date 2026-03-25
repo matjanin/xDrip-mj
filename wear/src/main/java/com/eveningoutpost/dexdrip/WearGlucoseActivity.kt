@@ -64,7 +64,7 @@ private fun WearGlucoseScreen() {
             BgReading.latestForGraph(
                 36,
                 (System.currentTimeMillis() - Constants.HOUR_IN_MS * 3)
-            ) ?: emptyList<BgReading>()
+            ) ?: emptyList()
         )
     }
 
@@ -73,7 +73,7 @@ private fun WearGlucoseScreen() {
     val trendArrow = bgReading?.displaySlopeArrow() ?: ""
     // Use the delta name from the reading itself (already computed during ingestion)
     val deltaText = bgReading?.dg_delta_name?.takeIf { it.isNotBlank() } ?: ""
-    val ageText = if (bgReading != null) JoH.niceTimeSince(bgReading!!.timestamp) else ""
+    val ageText = bgReading?.let { JoH.niceTimeSince(it.timestamp) } ?: ""
     val glucoseColor = glucoseColor(bgReading?.calculated_value ?: 0.0, doMgdl)
 
     Scaffold(
@@ -179,7 +179,7 @@ private fun glucoseColor(mgdl: Double, doMgdl: Boolean): Color {
     if (mgdl <= 0) return Color.Gray
     val low = if (doMgdl) 70.0 else 3.9
     val high = if (doMgdl) 180.0 else 10.0
-    val v = if (doMgdl) mgdl else mgdl * 0.0555
+    val v = if (doMgdl) mgdl else mgdl * Constants.MGDL_TO_MMOLL
     return when {
         v < low || v > high -> Color(0xFFEF5350)
         else -> Color(0xFF66BB6A)
