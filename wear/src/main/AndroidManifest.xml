@@ -308,6 +308,17 @@
             android:name=".MenuActivity"
             android:configChanges="orientation|screenSize"
             android:label="Menu" />
+
+        <!-- Phase C: Compose for Wear OS glucose dashboard -->
+        <activity
+            android:name=".WearGlucoseActivity"
+            android:exported="true"
+            android:label="MiniMed BG">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".UpdateActivity"
             />

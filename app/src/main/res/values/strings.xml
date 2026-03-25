@@ -2091,4 +2091,43 @@
     <string name="glupro_reading_frequency">Reading frequency</string>
     <string name="need_bluetooth_permission">Need bluetooth permission</string>
     <string name="ob1_sensor_stopped">Sensor Stopped</string>
+
+    <!-- MiniMed 780G Status / Diagnostics screen -->
+    <string name="minimed_status_title">MiniMed 780G Status</string>
+    <string name="minimed_status_integration_label">Companion App Integration</string>
+    <string name="minimed_status_integration_active">✅ Active (UiBased collection running)</string>
+    <string name="minimed_status_integration_disabled">⛔ Disabled — please select MiniMed 780G Companion App as data source</string>
+    <string name="minimed_status_notification_label">Notification Listener Permission</string>
+    <string name="minimed_status_granted">✅ Granted</string>
+    <string name="minimed_status_not_granted">⚠️ Not granted — tap the button below</string>
+    <string name="minimed_status_permission_missing">⚠️ Notification permission not granted — tap the button below</string>
+    <string name="minimed_status_last_reading_label">Last Glucose Reading</string>
+    <string name="minimed_status_no_reading">No reading available</string>
+    <string name="minimed_status_source_status_label">Active Collection Source</string>
+    <string name="minimed_status_grant_button">Grant Notification Listener Permission</string>
+
+    <!-- MiniMed 780G home screen -->
+    <string name="mj_home_title">MiniMed 780G</string>
+    <string name="mj_home_no_data">No data</string>
+    <string name="mj_home_age_format">%s ago</string>
+    <string name="mj_home_open_legacy">Open xDrip+ (full)</string>
+    <string name="mj_home_status_label">MiniMed Status</string>
+    <string name="mj_home_settings_label">Settings</string>
+    <string name="mj_home_companion_not_active">Companion app integration is not active.\nGo to Settings → Hardware Data Source.</string>
+    <string name="mj_home_battery_opt_title">Battery Optimization</string>
+    <string name="mj_home_battery_opt_message">This app is battery-optimized by Samsung. Background glucose collection may be unreliable.\n\nPlease exclude this app from battery optimization for reliable operation.</string>
+    <string name="mj_home_battery_opt_action">Fix Now</string>
+    <string name="mj_home_battery_opt_later">Later</string>
+    <string name="mj_home_graph_label">3h Graph</string>
+    <string name="mj_settings_title">MiniMed Settings</string>
+    <string name="mj_settings_units">Glucose Units</string>
+    <string name="mj_settings_units_mgdl">mg/dL</string>
+    <string name="mj_settings_units_mmol">mmol/L</string>
+    <string name="mj_settings_notifications">Alert Notifications</string>
+    <string name="mj_settings_high_alert">High Glucose Alert</string>
+    <string name="mj_settings_low_alert">Low Glucose Alert</string>
+    <string name="mj_settings_high_threshold">High threshold (mg/dL)</string>
+    <string name="mj_settings_low_threshold">Low threshold (mg/dL)</string>
+    <string name="mj_settings_companion_section">Companion App</string>
+    <string name="mj_settings_data_source">Data Source</string>
 </resources>

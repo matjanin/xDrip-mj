@@ -1,57 +1,54 @@
-# Nightscout xDrip+
-> Enhanced personal research version of xDrip
+# xDrip-mj — MiniMed 780G Companion App Fork
 
- <img align="right" src="Documentation/images/download-xdrip-plus-qr-code.png">
- Info page and APK download: https://jamorham.github.io/#xdrip-plus
+> A specialised fork of xDrip+ targeting **only** the Medtronic MiniMed 780G via the official
+> Medtronic companion app on Android, with a modern Jetpack-Compose / Material 3 UI and Wear OS
+> complication support.
 
-<img align="right" src="https://travis-ci.org/jamorham/xDrip-plus.svg?branch=master"><a align="right" title="Crowdin" target="_blank" href="https://crowdin.com/project/xdrip"><img align="right" src="https://badges.crowdin.net/xdrip/localized.svg"></a>
+## Supported hardware
 
-## Features
-* Voice, Keypad or Watch input of Treatments (Insulin/Carbs/Notes)
-* Visualization of Insulin and Carb action curves + Undo/Redo
-* Improved alerts and predictive low forecasting feature
-* Instant data synchronization between phones and tablets
-* Support for many different data sources
-* Published by the Nightscout Foundation
+| Phone | Pump | Data source |
+|---|---|---|
+| Samsung Galaxy S25 (Snapdragon 8 Elite) | Medtronic MiniMed 780G | MiniMed companion app (notification listener) |
 
- <img align="middle" src="https://jamorham.github.io/images/jamorham-natural-language-treatments-two-web.png">
+**No other CGM hardware, transmitters, or data bridges are supported in this fork.**
 
-## What does it do?
+## What is different from upstream xDrip+?
 
-xDrip+ is an unofficial and independent Android app which works as data hub and processor between many different devices.
+| Area | Change |
+|---|---|
+| Data sources | Only "MiniMed 780G Companion App" (UiBased) is shown in settings; all other source paths are hidden |
+| Home screen | New Jetpack Compose + Material 3 dashboard (glucose, trend, delta, age, 3-h graph) |
+| Settings | Compose-based MiniMed settings screen |
+| Wear OS | Compose for Wear OS watch app + enhanced complication provider |
+| Stability | Battery-optimisation detection and prompt; improved foreground-service logging |
 
-It supports wireless connections to G6, G7, Medtrum A6, Libre via NFC and Bluetooth, 630G, 640G, 670G pumps, CareSens Air and Eversense CGM via companion apps. Bluetooth Glucose Meters such as the Contour Next One, AccuChek Guide, Verio Flex & Diamond Mini as well as devices like the Pendiq 2.0 Insulin Pen.
+## How it works
 
-Heart-rate and step counter data is processed from Android Wear, Garmin, Fitbit and Pebble smart-watches and watch-faces for those that show glucose values and graphs.
+The app reads glucose values from the **notification stream** of the official Medtronic MiniMed
+Mobile companion app.  It does **not** communicate with the pump directly (no RileyLink / BLE
+bridge needed).
 
-On some Android Wear watches, it is possible for the G6 to talk directly to the watch so it can display values even when out of range of the phone.
+### Setup
+1. Install and open the Medtronic **MiniMed Mobile** app.  Ensure it is connected to your 780G and
+   displaying readings.
+2. Install this app.
+3. On first launch, go to **Settings → Hardware Data Source** and select
+   *MiniMed 780G Companion App*.
+4. Grant the **Notification Listener** permission when prompted (required so the app can read the
+   BG value displayed in the MiniMed notification).
+5. Optionally exclude this app from Samsung's battery optimisation (prompted on the home screen).
 
-The app contains sophisticated charting, customization and data entry features as well as a predictive simulation model.
+## Build
 
-Instant two-way synchronization is possible by linking follower handsets, data can also be uploaded and downloaded to a Nightscout web service or uploaded directly to Tidepool, MongoDB or InfluxDB.
+```bash
+./gradlew :app:assembleDebug :wear:assembleDebug
+```
 
-Customization allows for different options to configure alarms, vocalize readings, change the display preferences etc. International users can update translations from within the app too.
+Requires JDK 17, Android SDK 34, Kotlin 1.8.x.
 
-Your data is yours and can be exported in many different ways. xDrip also intercommunicates with other apps, for example sending and receiving live data with AndroidAPS.
+---
 
-
-## Ethos
-* Developed using Rapid Prototyping methodology
-* Immediate results favoured to prove concepts
-* Designed to support my personal research goals
-* User Choice always a high priority
-* No registration or Internet access required
-* Community testing and collaboration appreciated!
-
-## Roadmap
-* Calibration improvements
-* Supporting the large family of devices
-* Increasing automation and data backup and sync options
-* More Nightscout and APS integration
-
-## Collaboration
-We are very happy if people want to collaborate with this project. Please contact us at [Discussions](https://github.com/NightscoutFoundation/xDrip/discussions) if you want to get involved and study the [collaboration guidelines](CONTRIBUTING.md) before submitting any patches or pull requests.
-
-## Thanks
-None of this would be possible without all the hard work of the xDrip and Nightscout communities who have developed such excellent software and allowed us to build upon it.
+*This project is based on [xDrip+](https://github.com/NightscoutFoundation/xDrip) by the Nightscout
+Foundation, licensed under the Apache 2.0 License.  It is an independent, unofficial fork and is
+not affiliated with Medtronic.*
 
