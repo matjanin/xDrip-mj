@@ -137,6 +137,36 @@
                 <category android:name="com.google.android.wearable.watchface.category.WATCH_FACE" />
             </intent-filter>
         </service>
+
+        <!--
+            xDrip-style watch face for Galaxy Watch 8 (Wear OS).
+            Displays: BG value · trend arrow · delta · age · sparkline graph.
+            Tap opens WearGlucoseActivity for a detailed reading view.
+        -->
+        <service
+            android:name=".XDripStyleWatchFace"
+            android:allowEmbedded="true"
+            android:label="@string/label_xdrip_style"
+            android:permission="android.permission.BIND_WALLPAPER">
+            <meta-data
+                android:name="android.service.wallpaper"
+                android:resource="@xml/watch_face" />
+            <meta-data
+                android:name="com.google.android.wearable.watchface.preview"
+                android:resource="@drawable/watchface_xdrip_style_preview" />
+
+            <intent-filter>
+                <action android:name="android.service.wallpaper.WallpaperService" />
+
+                <category android:name="com.google.android.wearable.watchface.category.WATCH_FACE" />
+            </intent-filter>
+        </service>
+
+        <!-- Detail activity opened by tapping the xDrip-style watch face -->
+        <activity
+            android:name=".WearGlucoseActivity"
+            android:label="@string/label_xdrip_style"
+            android:exported="false" />
         <service android:name=".ListenerService">
             <intent-filter>
                 <action android:name="com.google.android.gms.wearable.CAPABILITY_CHANGED" />

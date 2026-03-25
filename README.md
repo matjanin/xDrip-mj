@@ -55,3 +55,48 @@ We are very happy if people want to collaborate with this project. Please contac
 ## Thanks
 None of this would be possible without all the hard work of the xDrip and Nightscout communities who have developed such excellent software and allowed us to build upon it.
 
+
+---
+
+## xDrip-Style Watch Face (Galaxy Watch 8 / Wear OS)
+
+The `wear` module includes a dedicated **xDrip Style** watch face designed for Galaxy Watch 8
+and other Wear OS watches.
+
+### What it displays
+
+| Element | Description |
+|---------|-------------|
+| **BG value** | Large, colour-coded (yellow = high, red = low, white = normal) |
+| **Trend arrow** | Directional arrow (↗ ↘ → etc.) next to the BG value |
+| **Delta** | Change since the last reading (e.g. `+0.5 mmol/L`) |
+| **Age** | Minutes since the most recent reading (e.g. `5 min ago`) |
+| **Sparkline** | Last ~3 h of readings drawn as a line chart at the bottom |
+| **Clock** | Current time at the top of the face |
+
+### How to select it on Galaxy Watch 8
+
+1. Long-press on the current watch face on your Galaxy Watch 8.
+2. Swipe left/right to browse available watch faces.
+3. Select **"xDrip Style"** from the list.
+4. Tap anywhere on the watch face to open the **Glucose Detail** screen.
+
+### Data sync
+
+The watch face relies on data pushed from the phone via the **Wearable Data Layer**
+(Google `DataClient`).  The existing `ListenerService` on the watch side receives
+BG updates and passes them to the watch face in real time – no extra configuration
+is needed.
+
+To ensure reliable updates on Samsung One UI / Wear OS:
+
+* Grant xDrip *Battery Optimisation* exemption on the phone.
+* Make sure the companion app (Galaxy Wearable) is installed and the watch is paired.
+* The watch face refreshes automatically when a new reading arrives; a one-minute
+  timer in the base class also triggers periodic redraws as a fallback.
+
+### Required permissions
+
+The Wear app already declares the permissions it needs (`WAKE_LOCK`, `INTERNET`,
+`BODY_SENSORS`, etc.).  No additional permissions are required specifically for the
+new watch face.

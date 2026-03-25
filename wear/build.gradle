@@ -25,6 +25,7 @@ android {
         resValue "string", "label_xdrip_large", "XDrip(Large)"
         resValue "string", "label_xdrip_big_chart", "XDrip(BigChart)"
         resValue "string", "label_xdrip_circle", "XDrip(Circle)"
+        resValue "string", "label_xdrip_style", "xDrip Style"
         resValue "string", "label_xdrip_activity", "XDrip Prefs."
         resValue "string", "app_settings", "XDrip Settings"
         resValue "string", "build_version_name", "Version: $versionName"

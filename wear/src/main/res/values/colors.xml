@@ -70,4 +70,7 @@
 
     <color name="colorPrimaryDark">#303f9f</color>
 
+    <!-- xDrip-style watch face status strip background -->
+    <color name="xdrip_style_status_bg">#1A1A1A</color>
+
 </resources>
