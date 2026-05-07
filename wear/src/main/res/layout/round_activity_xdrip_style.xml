@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Round layout for xDrip-style watch face (Galaxy Watch 8 / Wear OS).
+
+  Hierarchy:
+    RelativeLayout#main_layout          (black background, full screen)
+      ├── Hidden helper views (menu, steps, heart – required by BaseWatchFace)
+      ├── TextView#watch_time            (top-center, 22 sp)
+      ├── TextView#watch_date            (below time, hidden by default)
+      ├── LinearLayout#directiondelta_layout  (center of screen, vertical)
+      │     ├── LinearLayout (horizontal): sgv + direction
+      │     └── TextView#delta
+      ├── LinearLayout#secondary_layout  (status strip below BG row)
+      │     └── timestamp / battery / raw / status
+      └── LineChartView#chart            (sparkline, bottom of screen)
+-->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".XDripStyleWatchFace"
+    tools:deviceIds="wear_round">
+
+    <!-- ===== Hidden helper views required by BaseWatchFace ===== -->
+
+    <LinearLayout
+        android:id="@+id/menu_layout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:visibility="gone">
+        <Button
+            android:id="@+id/menuButton"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text=""
+            android:background="@android:color/transparent" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/steps_layout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:visibility="gone">
+        <Button
+            android:id="@+id/walkButton"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="0"
+            android:background="@android:color/transparent" />
+        <Button
+            android:id="@+id/heartButton"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="0"
+            android:background="@android:color/transparent" />
+    </LinearLayout>
+
+    <!-- ===== Clock time (top-center) ===== -->
+
+    <TextView
+        android:id="@+id/watch_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="22dp"
+        android:text="12:00"
+        android:textColor="#FFFFFF"
+        android:textSize="22sp" />
+
+    <!-- ===== Date (hidden by default; toggled by preference) ===== -->
+
+    <TextView
+        android:id="@+id/watch_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/watch_time"
+        android:layout_centerHorizontal="true"
+        android:text="Mon 01/01"
+        android:textColor="#9E9E9E"
+        android:textSize="11sp"
+        android:visibility="gone" />
+
+    <!-- ===== BG value + trend + delta (center) ===== -->
+
+    <LinearLayout
+        android:id="@+id/directiondelta_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <!-- BG value + trend arrow on same horizontal row -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/sgv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="---"
+                android:textColor="#FFFFFF"
+                android:textSize="52sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/direction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginBottom="-4dp"
+                android:text="--"
+                android:textColor="#FFFFFF"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <!-- Delta value -->
+        <TextView
+            android:id="@+id/delta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="+0.0"
+            android:textColor="#E0E0E0"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <!-- ===== Status strip (age / battery etc.) ===== -->
+
+    <LinearLayout
+        android:id="@+id/secondary_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/directiondelta_layout"
+        android:layout_marginTop="6dp"
+        android:background="@color/xdrip_style_status_bg"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:paddingBottom="3dp"
+        android:paddingTop="3dp">
+
+        <!-- Age of reading – always visible -->
+        <TextView
+            android:id="@+id/timestamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-- min ago"
+            android:textColor="#FFFFFF"
+            android:textSize="10sp" />
+
+        <!-- Phone uploader battery (hidden by default) -->
+        <TextView
+            android:id="@+id/uploader_battery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="8dp"
+            android:text=""
+            android:textColor="#9E9E9E"
+            android:textSize="9sp"
+            android:visibility="gone" />
+
+        <!-- Bridge battery (hidden by default) -->
+        <TextView
+            android:id="@+id/uploader_xbattery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="8dp"
+            android:text=""
+            android:textColor="#9E9E9E"
+            android:textSize="9sp"
+            android:visibility="gone" />
+
+        <!-- Raw value (hidden by default) -->
+        <TextView
+            android:id="@+id/raw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="8dp"
+            android:text=""
+            android:textColor="#9E9E9E"
+            android:textSize="9sp"
+            android:visibility="gone" />
+
+        <!-- External status string (hidden by default) -->
+        <TextView
+            android:id="@+id/externaltstatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="8dp"
+            android:text=""
+            android:textColor="#9E9E9E"
+            android:textSize="9sp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+    <!-- ===== Sparkline chart (last ~3 h, bottom of screen) ===== -->
+
+    <lecho.lib.hellocharts.view.LineChartView
+        android:id="@+id/chart"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="18dp" />
+
+</RelativeLayout>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Preview image shown in the watch face selector for xDrip Style.
+  Shows a schematic of: time at top, large BG value + trend arrow in centre,
+  delta below, age strip, and sparkline at the bottom – all on a black background.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="320dp"
+    android:height="320dp"
+    android:viewportWidth="320"
+    android:viewportHeight="320">
+
+    <!-- Black circular background -->
+    <path
+        android:fillColor="#000000"
+        android:pathData="M160,160m-160,0a160,160 0 1,0 320,0a160,160 0 1,0 -320,0" />
+
+    <!-- Time text placeholder (top-center) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M110,48 L210,48 L210,64 L110,64 Z" />
+
+    <!-- BG value placeholder (large, center-left) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M62,120 L182,120 L182,172 L62,172 Z" />
+
+    <!-- Trend arrow placeholder (to the right of BG) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M192,170 L192,140 L214,140 L194,120 L174,140 L192,140" />
+
+    <!-- Delta text placeholder (below BG) -->
+    <path
+        android:fillColor="#E0E0E0"
+        android:pathData="M116,180 L204,180 L204,192 L116,192 Z" />
+
+    <!-- Status strip (age of reading) -->
+    <path
+        android:fillColor="#1A1A1A"
+        android:pathData="M40,202 L280,202 L280,216 L40,216 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M112,205 L208,205 L208,213 L112,213 Z" />
+
+    <!-- Sparkline graph area at the bottom -->
+    <path
+        android:fillColor="#1A1A1A"
+        android:pathData="M40,236 L280,236 L280,286 L40,286 Z" />
+
+    <!-- Sparkline curve (schematic) -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#4CAF50"
+        android:strokeWidth="3"
+        android:pathData="M44,272 C70,258 90,278 120,260 S170,248 200,255 S240,268 276,252" />
+
+</vector>
